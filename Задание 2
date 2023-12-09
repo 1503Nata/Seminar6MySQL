@@ -1,0 +1,23 @@
+-- Выведите только четные числа от 1 до 10. Пример: 2,4,6,8,10 
+
+DROP PROCEDURE IF EXISTS print_numbers;
+DELIMITER $$
+CREATE PROCEDURE print_numbers(`start` INT, `end` INT)
+BEGIN
+	DECLARE i INT DEFAULT `start`;
+    DECLARE even_numbers TEXT DEFAULT NULL;
+    WHILE  i<=`end` DO
+        IF i%2 = 0 THEN
+			IF even_numbers IS NULL THEN
+				SET even_numbers = concat(i);
+			ELSE
+				SET even_numbers = concat(even_numbers, ', ', i);
+			END IF;
+		END IF;
+        SET i = i + 1;
+    END WHILE;
+	SELECT even_numbers;
+END $$
+DELIMITER ;
+
+CALL print_numbers(1, 10);
