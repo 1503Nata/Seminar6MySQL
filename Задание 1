@@ -1,0 +1,23 @@
+-- 1. Создайте функцию, которая принимает кол-во сек и формат их в кол-во дней, часов, минут и секунд.
+-- Пример: 123456 ->'1 days 10 hours 17 minutes 36 seconds '.
+
+DELIMITER //
+CREATE PROCEDURE second_to_date(seconds INT)
+BEGIN
+    DECLARE days INT;
+    DECLARE hours INT;
+    DECLARE minutes INT;
+
+    SET days = seconds / 86400;
+    SET seconds = seconds % 86400;
+    SET hours = seconds / 3600;
+    SET seconds = seconds % 3600;
+    SET minutes = seconds / 60;
+    SET seconds = seconds % 60;
+
+SELECT CONCAT(days, ' days ', hours, ' hours ', minutes, ' minutes ', seconds, ' seconds') AS date_time;
+END //
+
+DELIMITER ;
+
+CALL seconds_to_date(13152400);
